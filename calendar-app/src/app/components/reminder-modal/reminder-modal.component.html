@@ -1,0 +1,110 @@
+<div class="modal"
+     [ngClass]="{ 'is-active': isOpen }">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head"
+            [ngClass]="{
+              'has-background-primary has-text-white': color === 0,
+              'has-background-warning has-text-white': color === 1,
+              'has-background-success has-text-white': color === 2,
+              'has-background-danger has-text-white': color === 3,
+              'has-background-info has-text-white': color === 4
+            }">
+      <p class="modal-card-title has-text-white"
+         [ngClass]="{ 'has-text-white': color !== 1 }">Reminder</p>
+      <button class="delete"
+              aria-label="close"
+              (click)="cancel()"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="columns">
+        <div class="column has-text-centered">
+          <label class="reminder-color-button button is-primary is-block"
+                 [ngClass]="{ 'selected': color === 0 }">
+            <input type="radio"
+                        [value]="0"
+                        [(ngModel)]="color"/>
+          </label>
+        </div>
+        <div class="column has-text-centered">
+          <label class="reminder-color-button button is-warning is-block"
+                 [ngClass]="{ 'selected': color === 1 }">
+            <input type="radio"
+                        [value]="1"
+                        [(ngModel)]="color"/>
+          </label>
+        </div>
+        <div class="column has-text-centered">
+          <label class="reminder-color-button button is-success is-block"
+                 [ngClass]="{ 'selected': color === 2 }">
+            <input type="radio"
+                        [value]="2"
+                        [(ngModel)]="color"/>
+          </label>
+        </div>
+        <div class="column has-text-centered">
+          <label class="reminder-color-button button is-danger is-block"
+                 [ngClass]="{ 'selected': color === 3 }">
+            <input type="radio"
+                        [value]="3"
+                        [(ngModel)]="color"/>
+          </label>
+        </div>
+        <div class="column has-text-centered">
+          <label class="reminder-color-button button is-info is-block"
+                 [ngClass]="{ 'selected': color === 4 }">
+            <input type="radio"
+                        [value]="4"
+                        [(ngModel)]="color"/>
+          </label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Name *</label>
+        <div class="control">
+          <input class="input"
+                 type="text"
+                 [(ngModel)]="name"
+                 maxlength="30">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Date *</label>
+        <div class="control">
+          <input class="input"
+                 [(ngModel)]="day"
+                 [min]=""
+                 type="date">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Time *</label>
+        <div class="control">
+          <input class="input"
+                 [disabled]="!day"
+                 [(ngModel)]="time"
+                 type="time">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">City</label>
+        <div class="control">
+          <input class="input"
+                 type="text"
+                 [(ngModel)]="city"
+                 maxlength="100">
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot is-justify-content-space-between">
+      <button class="button is-success"
+              [disabled]="!canSubmit()"
+              (click)="confirm()">Confirm</button>
+      <button class="button is-danger"
+              *ngIf="!!id"
+              (click)="delete()">Delete</button>
+      <button class="button"
+              (click)="cancel()">Cancel</button>
+    </footer>
+  </div>
+</div>

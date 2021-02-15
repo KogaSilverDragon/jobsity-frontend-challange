@@ -1,0 +1,78 @@
+@import "~bulma/sass/helpers/color";
+
+.calendar {
+  &-header {
+    background-color: $info-dark;
+    color: $white;
+    text-align: center;
+    border-radius: $radius-large $radius-large 0 0;
+    pointer-events: none
+  }
+
+  &-week {
+    min-height: 8rem;
+    border-left: 1px solid $grey-light;
+    border-right: 1px solid $grey-light;
+    border-bottom: 1px solid $grey-light;
+  }
+
+  &-day {
+    position: relative;
+    border-right: 1px solid $grey-light;
+    overflow: hidden;
+
+    &:first-of-type,
+    &:last-of-type {
+      background-color: $grey-lightest;
+
+      &:not(.calendar-day--faded) .calendar-day__date { color: $info-dark; }
+      .calendar-day__date { color: $grey-light; }
+    }
+    &:last-of-type { border-right: 0; }
+    &:hover {
+      cursor: pointer;
+      background-color: $white-ter;
+      transition: .3s all ease;
+    }
+
+    &__date {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: .4rem;
+      pointer-events: none;
+      font-size: .8rem;
+      font-weight: bold;
+    }
+
+    &__clear-all {
+      height: auto;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0.2rem 0.6rem;
+      display: none;
+    }
+    &:hover &__clear-all { display: block; }
+
+    &--faded &__date {
+      color: $grey-light;
+    }
+
+    &__reminder {
+      width: 100%;
+      height: auto;
+      padding: 0.1rem 0.2rem;
+      line-height: 1.2;
+      overflow: hidden;
+      display: block;
+      text-overflow: ellipsis;
+      margin-bottom: 0.25rem;
+
+      &-list {
+        height: 100%;
+        padding: 2rem .2rem .2rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="box mt-4">
+    <div class="columns">
+      <div class="column is-1">
+        <button class="button"
+                (click)="prevMonth()">
+          <span class="icon">
+            <i class="mdi mdi-arrow-left"></i>
+          </span>
+        </button>
+      </div>
+      <div class="column">
+        <h2 class="title">{{calendar.monthData.monthName}}</h2>
+        <h3 class="subtitle">{{calendar.monthData.year}}</h3>
+      </div>
+      <div class="column is-1">
+        <button class="button"
+                (click)="nextMonth()">
+          <span class="icon">
+            <i class="mdi mdi-arrow-right"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="calendar p-3">
+      <div class="columns is-mobile calendar-header">
+        <div class="column calendar-header">Sunday</div>
+        <div class="column calendar-header">Monday</div>
+        <div class="column calendar-header">Tuesday</div>
+        <div class="column calendar-header">Wednesday</div>
+        <div class="column calendar-header">Thursday</div>
+        <div class="column calendar-header">Friday</div>
+        <div class="column calendar-header">Saturday</div>
+      </div>
+      <div class="columns is-mobile calendar-week"
+           *ngFor="let week of calendar.monthData.weeks">
+        <div class="column is-mobile calendar-day is-paddingless"
+             *ngFor="let day of week"
+             [ngClass]="{ 'calendar-day--faded': !day.currentMonth }"
+             (click)="newReminder(day.date)">
+          <span class="calendar-day__date">{{day.date | date: 'dd'}}</span>
+          <button class="calendar-day__clear-all button is-text"
+                  (click)="clearDate(day.date, $event)">
+            <span class="icon is-small">
+              <i class="mdi mdi-delete"></i>
+            </span>
+          </button>
+          <ul class="calendar-day__reminder-list">
+            <li class="calendar-day__reminder tag"
+                [ngClass]="{
+                  'is-primary': reminder.isCyan,
+                  'is-info': reminder.isBlue,
+                  'is-success': reminder.isGreen,
+                  'is-warning': reminder.isYellow,
+                  'is-danger': reminder.isRed
+                }"
+                *ngFor="let reminder of (getReminders(day.date) | async)"
+                (click)="editReminder(reminder, $event)">
+              [{{reminder.date | date: 'HH:mm'}}] {{reminder.name}}
+              <div *ngIf="reminder.city">
+                ({{reminder.city}} - {{reminder.weather}})
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-reminder-modal #modal></app-reminder-modal>
