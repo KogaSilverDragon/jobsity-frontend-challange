@@ -63,7 +63,7 @@ export class CalendarComponent implements OnInit {
     let reminders: Reminder[] = [];
     const sub: Subscription = this.getReminders(date)
       .subscribe(_reminders => reminders = _reminders);
-    console.log(reminders);
+
     this.store.dispatch(ClearDate(reminders));
     sub.unsubscribe();
   }
